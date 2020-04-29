@@ -17,6 +17,7 @@ public class ProductController {
 	@GetMapping("/productos")
 	public ModelAndView compra() {
 		ModelAndView mav = new ModelAndView();
+		productos.clear();
 		productos.add(new Product(0,"Litro de leche",30));
 		productos.add(new Product(1,"Pechuga de pollo",15));
 		productos.add(new Product(2,"Caramelo Skittle",10));
