@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.uca.capas.domain.Product;
@@ -15,7 +14,7 @@ import com.uca.capas.domain.Product;
 public class ProductController {
 	private List<Product> productos = new ArrayList<Product>();
 	
-	@GetMapping("/compra")
+	@GetMapping("/productos")
 	public ModelAndView compra() {
 		ModelAndView mav = new ModelAndView();
 		productos.add(new Product(0,"Litro de leche",30));
@@ -23,16 +22,25 @@ public class ProductController {
 		productos.add(new Product(2,"Caramelo Skittle",10));
 		productos.add(new Product(3,"Bebida Coca cola",50));
 		productos.add(new Product(4,"Silla plegable",3));
-		mav.setViewName("select");
+		mav.setViewName("productos");
 		mav.addObject("producto", new Product());
 		mav.addObject("productos", productos);
 		return mav;
 	}
 	
-	@PostMapping("Validar")
-	@ResponseBody
-	public String validar(Product producto) {
-		return productos.get(producto.getId()).getNombre();
+	@PostMapping("/validar")
+	public ModelAndView validar(Product producto) {
+		ModelAndView mav = new ModelAndView();
+	
+		if((producto.getCantidad()) <= productos.get(producto.getId()).getCantidad()) {
+			mav.setViewName("compra");
+			mav.addObject("productox", productos.get(producto.getId()).getNombre());
+		}else {
+			mav.setViewName("error");
+			mav.addObject("productox", productos.get(producto.getId()).getNombre());
+		}
+		return mav;
 	}
+	
 	
 }

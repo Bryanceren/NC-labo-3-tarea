@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Productos</title>
+</head>
+<body>
+	<form th:action="@{/validar}" method= "post" th:object = "${producto}">
+		<label>Product</label>
+				<select th:field ="*{id}">
+					<option th:each = "p : ${productos}" 
+					th:value= "${p.id}"
+					th:text = "${p.nombre}">
+					</option>
+				</select>
+			<input type="text" th:field= "*{cantidad}"/>			
+			<br>
+			<input type="submit" value="Enviar"/>
+
+	</form>
+
+</body>
+</html>
